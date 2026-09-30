@@ -1,29 +1,34 @@
 services:
   db:
-    image: postgres:16-alpine
+    image: postgres:18.4
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-tutor}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-tutor}
       POSTGRES_DB: ${POSTGRES_DB:-tutor}
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
-      interval: 5s
+      interval: 3s
       timeout: 3s
-      retries: 10
+      retries: 5
     ports:
       - "${POSTGRES_PORT:-5432}:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql
 
   app:
     build: .
     environment:
-      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-tutor}:${POSTGRES_PASSWORD:-tutor}@db:5432/${POSTGRES_DB:-tutor}
+      APP_ENV: ${APP_ENV:-development}
+      DATABASE_URL: ${DATABASE_URL:-postgresql+psycopg://tutor:tutor@db:5432/tutor}
+      PORT: ${PORT:-8000}
     depends_on:
       db:
         condition: service_healthy
     ports:
-      - "${APP_PORT:-8000}:8000"
+      - "${PORT:-8000}:8000"
+    command: >-
+      sh -c 'alembic upgrade head &&
+      exec uvicorn app.main:app --host 0.0.0.0 --port 8000'
 
 volumes:
   postgres_data:

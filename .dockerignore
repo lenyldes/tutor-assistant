@@ -1,4 +1,6 @@
 .git
+.agents
+.codex
 .venv
 .env
 __pycache__
