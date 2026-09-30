@@ -89,7 +89,7 @@ FastAPI (app/main.py, app/api/checks.py)
 Нужны Docker и Docker Compose. Из корня репозитория:
 
 ```bash
-docker compose up --build
+docker compose up --build -d
 ```
 
 Compose сам подставляет демонстрационные значения из `docker-compose.yml` — копировать `.env.example` для локального запуска не нужно. Контейнер приложения дожидается готовности PostgreSQL, применяет `alembic upgrade head` и запускает API. Данные базы сохраняются в томе `postgres_data`.
