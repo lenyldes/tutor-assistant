@@ -31,7 +31,7 @@ curl --fail-with-body -sS -X POST http://localhost:8000/api/checks \
 
 Команду выполняйте из корня репозитория после `docker compose up --build`. Для публичного стенда замените базовый адрес в команде; используйте только синтетические файлы.
 
-Пример структуры ответа для полного `daily` (ID, размеры и время условные):
+Пример структуры ответа для полного `daily` (ID и время условные, размеры соответствуют файлам в репозитории):
 
 ```json
 {
@@ -42,7 +42,7 @@ curl --fail-with-body -sS -X POST http://localhost:8000/api/checks \
   "reason": "",
   "issues": [],
   "documents": [
-    {"name": "дневник_наблюдений.xlsx", "detected_type": "observation_diary", "size_kb": 1},
+    {"name": "дневник_наблюдений.xlsx", "detected_type": "observation_diary", "size_kb": 2},
     {"name": "отчёт_о_занятии.pdf", "detected_type": "lesson_report", "size_kb": 1},
     {"name": "обратная_связь_родителя.docx", "detected_type": "parent_feedback", "size_kb": 1}
   ],
