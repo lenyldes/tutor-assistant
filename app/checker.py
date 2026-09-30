@@ -39,8 +39,7 @@ def detect_type(name: str) -> DocumentType | None:
         phrase_words = phrase.split()
         width = len(phrase_words)
         if any(
-            words[index : index + width] == phrase_words
-            for index in range(len(words) - width + 1)
+            words[index : index + width] == phrase_words for index in range(len(words) - width + 1)
         ):
             return category
     return None
