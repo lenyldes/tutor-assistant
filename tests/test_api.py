@@ -150,8 +150,12 @@ def test_demo_page_styles_and_privacy_warning(client: TestClient) -> None:
     assert "text/html" in page.headers["content-type"]
     assert "Демо публичное." in page.text
     assert "Не загружайте персональные данные детей." in page.text
+    assert 'data-mode="manual"' in page.text
+    assert 'data-mode="scenarios"' in page.text
+    assert 'data-files-for="unknown"' in page.text
     assert 'data-scenario="unknown"' in page.text
     assert client.get("/web/style.css").status_code == 200
+    assert client.get("/web/modes.css").status_code == 200
     assert client.get("/web/app.js").status_code == 200
 
 

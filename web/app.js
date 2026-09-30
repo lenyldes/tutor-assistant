@@ -24,7 +24,32 @@ const result = document.querySelector("#result");
 const history = document.querySelector("#history");
 const requestMeta = document.querySelector("#request-meta");
 const jsonResponse = document.querySelector("#json-response");
-const actionButtons = [...document.querySelectorAll("#submit-button, .scenario")];
+const actionButtons = [...document.querySelectorAll("#submit-button, .scenario-run")];
+const manualFiles = [];
+
+document.querySelectorAll(".mode-button").forEach((button) => {
+  button.addEventListener("click", () => {
+    const activeMode = button.dataset.mode;
+    document.querySelectorAll(".mode-button").forEach((modeButton) => {
+      modeButton.setAttribute("aria-pressed", String(modeButton === button));
+    });
+    document.querySelector("#manual-panel").hidden = activeMode !== "manual";
+    document.querySelector("#scenarios-panel").hidden = activeMode !== "scenarios";
+  });
+});
+
+document.querySelectorAll("[data-files-for]").forEach((list) => {
+  const scenario = scenarios[list.dataset.filesFor];
+  scenario.files.forEach((name) => {
+    const item = document.createElement("li");
+    const link = document.createElement("a");
+    link.href = `/demo-files/${encodeURIComponent(name)}`;
+    link.download = name;
+    link.textContent = name;
+    item.append(link);
+    list.append(item);
+  });
+});
 
 function element(tag, className, content) {
   const node = document.createElement(tag);
@@ -137,13 +162,32 @@ async function submitCheck(recordType, files) {
   }
 }
 
+function renderSelectedFiles() {
+  selectedFiles.replaceChildren();
+  manualFiles.forEach((file, index) => {
+    const item = element("li", "selected-file");
+    item.append(element("span", "", file.name));
+    const remove = element("button", "remove-file", "×");
+    remove.type = "button";
+    remove.setAttribute("aria-label", `Убрать файл ${file.name}`);
+    remove.addEventListener("click", () => {
+      manualFiles.splice(index, 1);
+      renderSelectedFiles();
+    });
+    item.append(remove);
+    selectedFiles.append(item);
+  });
+}
+
 fileInput.addEventListener("change", () => {
-  selectedFiles.replaceChildren(...[...fileInput.files].map((file) => element("li", "", file.name)));
+  manualFiles.push(...fileInput.files);
+  fileInput.value = "";
+  renderSelectedFiles();
 });
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
-  submitCheck(form.elements.record_type.value, [...fileInput.files]);
+  submitCheck(form.elements.record_type.value, [...manualFiles]);
 });
 
 document.querySelectorAll("[data-scenario]").forEach((button) => {

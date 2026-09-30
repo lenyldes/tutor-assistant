@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Проверка материалов тьютора</title>
   <link rel="stylesheet" href="/web/style.css">
+  <link rel="stylesheet" href="/web/modes.css">
   <script src="/web/app.js" defer></script>
 </head>
 <body>
@@ -18,37 +19,44 @@
     </div>
   </header>
 
-  <main class="shell">
+  <main>
     <section class="hero" aria-labelledby="page-title">
-      <div class="eyebrow"><span class="eyebrow-dot"></span> ДЕМОНСТРАЦИЯ СЕРВИСА</div>
-      <h1 id="page-title">Проверка комплекта<br><em>без лишних шагов.</em></h1>
-      <p class="lead">Загрузите материалы за день или неделю. Сервис проверит формат, название и комплектность файлов, а результат сохранит в истории.</p>
-      <div class="privacy" role="alert"><span class="privacy-icon" aria-hidden="true">!</span><span><strong>Демо публичное.</strong> Не загружайте персональные данные детей.</span></div>
+      <div class="shell hero-inner">
+        <div class="eyebrow"><span class="eyebrow-dot"></span> ДЕМОНСТРАЦИЯ СЕРВИСА</div>
+        <h1 id="page-title">Проверка комплекта<br><em>без лишних шагов.</em></h1>
+        <p class="lead">Загрузите материалы за день или неделю. Сервис проверит формат, название и комплектность файлов, а результат сохранит в истории.</p>
+        <div class="privacy" role="alert"><span class="privacy-icon" aria-hidden="true">!</span><span><strong>Демо публичное.</strong> Не загружайте персональные данные детей.</span></div>
+      </div>
     </section>
 
-    <section class="workspace" aria-label="Проверка материалов">
+    <nav class="shell mode-switch" aria-label="Способ проверки">
+      <button class="mode-button" type="button" data-mode="manual" aria-pressed="true" aria-controls="manual-panel">Ручная проверка</button>
+      <button class="mode-button" type="button" data-mode="scenarios" aria-pressed="false" aria-controls="scenarios-panel">Готовые сценарии</button>
+    </nav>
+
+    <section class="shell workspace" aria-label="Проверка материалов">
       <div class="main-column">
-        <section class="card upload-card" aria-labelledby="upload-title">
+        <section class="card upload-card" id="manual-panel" aria-labelledby="upload-title">
           <div class="section-heading"><div><span class="step">01 / ПРОВЕРКА</span><h2 id="upload-title">Новая проверка</h2></div><span class="hint">PDF · DOCX · XLSX · JPG · PNG</span></div>
           <form id="check-form">
             <fieldset class="record-types"><legend>Тип записи</legend>
               <label class="radio-card"><input type="radio" name="record_type" value="daily" checked><span><strong>День</strong><small>3 обязательных материала</small></span></label>
               <label class="radio-card"><input type="radio" name="record_type" value="weekly"><span><strong>Неделя</strong><small>4 обязательных материала</small></span></label>
             </fieldset>
-            <label class="drop-zone" for="files"><span class="drop-icon" aria-hidden="true">↑</span><strong>Выберите файлы для проверки</strong><small>Можно выбрать несколько файлов · до 20 МБ каждый</small><input id="files" name="files" type="file" multiple accept=".pdf,.docx,.xlsx,.jpg,.png"></label>
+            <label class="drop-zone" for="files"><span class="drop-icon" aria-hidden="true">↑</span><strong>Выберите файлы для проверки</strong><small>Можно выбрать файлы любого формата · до 20 МБ каждый</small><input id="files" name="files" type="file" multiple></label>
             <ul id="selected-files" class="selected-files" aria-live="polite"></ul>
             <button id="submit-button" class="button button-primary" type="submit">Проверить комплект <span aria-hidden="true">→</span></button>
           </form>
         </section>
 
-        <section class="card scenarios-card" aria-labelledby="scenarios-title">
+        <section class="card scenarios-card" id="scenarios-panel" aria-labelledby="scenarios-title" hidden>
           <div class="section-heading"><div><span class="step">02 / ПРИМЕРЫ</span><h2 id="scenarios-title">Готовые сценарии</h2></div></div>
           <p class="section-description">Попробуйте сервис на вымышленных файлах. Каждый пример отправляет обычный запрос к API.</p>
           <div class="scenario-grid">
-            <button class="scenario" type="button" data-scenario="daily"><span class="scenario-number">01</span><span><strong>Полный daily</strong><small>Три материала · полный комплект</small></span><span class="arrow" aria-hidden="true">↗</span></button>
-            <button class="scenario" type="button" data-scenario="weekly"><span class="scenario-number">02</span><span><strong>Полный weekly</strong><small>Четыре материала · полный комплект</small></span><span class="arrow" aria-hidden="true">↗</span></button>
-            <button class="scenario" type="button" data-scenario="incomplete"><span class="scenario-number">03</span><span><strong>Неполный комплект</strong><small>Нет обратной связи родителя</small></span><span class="arrow" aria-hidden="true">↗</span></button>
-            <button class="scenario" type="button" data-scenario="unknown"><span class="scenario-number">04</span><span><strong>Нераспознанное имя</strong><small>Полный комплект + лишний файл</small></span><span class="arrow" aria-hidden="true">↗</span></button>
+            <div class="scenario-entry"><div class="scenario"><span class="scenario-number">01</span><span><strong>Полный daily</strong><small>Три материала · полный комплект</small></span></div><button class="scenario-run" type="button" data-scenario="daily"><span aria-hidden="true">▶</span> Запустить проверку</button><details><summary>Посмотреть и скачать файлы</summary><ul data-files-for="daily"></ul></details></div>
+            <div class="scenario-entry"><div class="scenario"><span class="scenario-number">02</span><span><strong>Полный weekly</strong><small>Четыре материала · полный комплект</small></span></div><button class="scenario-run" type="button" data-scenario="weekly"><span aria-hidden="true">▶</span> Запустить проверку</button><details><summary>Посмотреть и скачать файлы</summary><ul data-files-for="weekly"></ul></details></div>
+            <div class="scenario-entry"><div class="scenario"><span class="scenario-number">03</span><span><strong>Неполный комплект</strong><small>Нет обратной связи родителя</small></span></div><button class="scenario-run" type="button" data-scenario="incomplete"><span aria-hidden="true">▶</span> Запустить проверку</button><details><summary>Посмотреть и скачать файлы</summary><ul data-files-for="incomplete"></ul></details></div>
+            <div class="scenario-entry"><div class="scenario"><span class="scenario-number">04</span><span><strong>Нераспознанное имя</strong><small>Полный комплект + лишний файл</small></span></div><button class="scenario-run" type="button" data-scenario="unknown"><span aria-hidden="true">▶</span> Запустить проверку</button><details><summary>Посмотреть и скачать файлы</summary><ul data-files-for="unknown"></ul></details></div>
           </div>
         </section>
 

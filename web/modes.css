@@ -1,0 +1,268 @@
+.hero {
+  width: 100%;
+  padding: 0;
+  background: linear-gradient(115deg, #edf7ef 0%, #f8faf7 72%);
+  border-bottom: 1px solid #e0ece2;
+}
+
+.hero-inner {
+  padding-top: 62px;
+  padding-bottom: 48px;
+}
+
+.lead {
+  max-width: 900px;
+  font-size: 17px;
+}
+
+.privacy {
+  width: 100%;
+  margin-top: 32px;
+  padding: 17px 20px;
+  border: 2px solid #eaa8a8;
+  background: #fff0ef;
+  color: #9c1821;
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 700;
+}
+
+.privacy strong {
+  color: #811018;
+  font-weight: 800;
+}
+
+.privacy-icon {
+  width: 28px;
+  height: 28px;
+  background: #c82431;
+  font-size: 18px;
+}
+
+.mode-switch {
+  display: flex;
+  gap: 10px;
+  margin-top: 28px;
+  margin-bottom: 22px;
+}
+
+.mode-button {
+  min-width: 205px;
+  padding: 14px 20px;
+  border: 1px solid #d5e4d9;
+  border-radius: 10px;
+  background: white;
+  color: #526a5b;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.mode-button:hover {
+  border-color: #328e69;
+}
+
+.mode-button[aria-pressed="true"] {
+  border-color: #167557;
+  background: #167557;
+  color: white;
+}
+
+.mode-button:focus-visible,
+.scenario-run:focus-visible,
+.remove-file:focus-visible,
+.scenario-entry summary:focus-visible {
+  outline: 3px solid #2f9674;
+  outline-offset: 3px;
+}
+
+.workspace {
+  padding-bottom: 10px;
+}
+
+.step,
+.eyebrow,
+.hint,
+.json-heading {
+  font-size: 12px;
+}
+
+.section-description,
+.record-types legend,
+.radio-card strong,
+.drop-zone strong,
+.button,
+.history-list,
+.empty-state,
+.result-banner span,
+.result-group li,
+.request-meta div,
+.text-button {
+  font-size: 14px;
+}
+
+.radio-card small,
+.drop-zone small,
+.selected-files li,
+.scenario small,
+.history-item small,
+.result-group small {
+  font-size: 12px;
+}
+
+.scenario strong,
+.history-item strong,
+.empty-state strong,
+.result-banner strong,
+.result-group h3 {
+  font-size: 15px;
+}
+
+.status-chip {
+  font-size: 12px;
+}
+
+.json-response {
+  font-size: 12px;
+}
+
+.scenario-grid {
+  gap: 14px;
+}
+
+.scenario-entry {
+  min-width: 0;
+  border: 1px solid #e5ece7;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.scenario-entry:hover {
+  border-color: #83bea0;
+}
+
+.scenario {
+  width: 100%;
+  min-height: 86px;
+  border: 0;
+  border-radius: 0;
+  cursor: default;
+}
+
+.scenario:hover {
+  border-color: transparent;
+  background: white;
+}
+
+.scenario-run {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  width: calc(100% - 28px);
+  margin: 0 14px 14px;
+  padding: 10px 12px;
+  border: 1px solid #167557;
+  border-radius: 8px;
+  background: #167557;
+  color: white;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.scenario-run:hover {
+  background: #105d45;
+}
+
+.scenario-run:disabled {
+  opacity: .6;
+  cursor: wait;
+}
+
+.selected-file {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.selected-file span {
+  overflow-wrap: anywhere;
+}
+
+.remove-file {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  border-radius: 5px;
+  background: #dcebe1;
+  color: #315b42;
+  font-size: 19px;
+  line-height: 1;
+}
+
+.remove-file:hover {
+  background: #f8dddd;
+  color: #a82830;
+}
+
+.scenario-entry details {
+  border-top: 1px solid #e9efe9;
+  padding: 10px 14px 12px;
+}
+
+.scenario-entry summary {
+  color: #197858;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.scenario-entry ul {
+  margin: 10px 0 0;
+  padding-left: 18px;
+}
+
+.scenario-entry li {
+  margin: 7px 0;
+  overflow-wrap: anywhere;
+  font-size: 12px;
+}
+
+.scenario-entry a {
+  color: #126b55;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+.scenario-entry a:hover {
+  color: #0d4d3d;
+}
+
+@media (max-width: 550px) {
+  .hero-inner {
+    padding-top: 42px;
+    padding-bottom: 36px;
+  }
+
+  .lead {
+    font-size: 15px;
+  }
+
+  .privacy {
+    font-size: 15px;
+  }
+
+  .mode-switch {
+    gap: 8px;
+  }
+
+  .mode-button {
+    min-width: 0;
+    flex: 1;
+    padding: 12px 8px;
+    font-size: 12px;
+  }
+}
