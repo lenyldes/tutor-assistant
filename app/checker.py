@@ -58,13 +58,15 @@ def check_files(record_type: RecordType, files: Iterable[FileMetadata]) -> Check
 
         extension = PurePath(file.name).suffix.casefold()
         valid_extension = extension in ALLOWED_EXTENSIONS
-        valid_size = file.size_bytes <= MAX_FILE_BYTES
+        valid_size = 0 < file.size_bytes <= MAX_FILE_BYTES
 
         if not valid_extension:
             issues.append(
                 Issue(level=IssueLevel.WARNING, message=f"Недопустимый формат файла: «{file.name}»")
             )
-        if not valid_size:
+        if file.size_bytes == 0:
+            issues.append(Issue(level=IssueLevel.WARNING, message=f"Пустой файл: «{file.name}»"))
+        elif not valid_size:
             issues.append(
                 Issue(level=IssueLevel.WARNING, message=f"Превышен размер 20 МБ: «{file.name}»")
             )

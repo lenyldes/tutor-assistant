@@ -92,6 +92,25 @@ def test_case_7_exact_size_limit_is_valid() -> None:
     assert result.documents[0].size_kb == 20 * 1024
 
 
+def test_empty_required_file_does_not_count() -> None:
+    entries = [*files(DIARY, REPORT), FileMetadata(FEEDBACK, 0)]
+    result = check_files(RecordType.DAILY, entries)
+    assert result.status == CheckStatus.INCOMPLETE
+    assert levels(result) == [IssueLevel.WARNING, IssueLevel.ERROR]
+    assert "Пустой файл" in result.issues[0].message
+    assert result.documents[-1].detected_type is None
+    assert result.documents[-1].size_kb == 0
+    assert "обратная связь родителя" in result.reason
+
+
+def test_empty_extra_file_keeps_complete_with_warning() -> None:
+    entries = [*files(DIARY, REPORT, FEEDBACK), FileMetadata("scan_0041.jpg", 0)]
+    result = check_files(RecordType.DAILY, entries)
+    assert result.status == CheckStatus.COMPLETE
+    assert levels(result) == [IssueLevel.WARNING]
+    assert "Пустой файл" in result.issues[0].message
+
+
 def test_case_8_duplicate_does_not_replace_feedback() -> None:
     result = check_files(
         RecordType.DAILY,

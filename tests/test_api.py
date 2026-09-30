@@ -85,6 +85,27 @@ def test_post_warning_preserves_complete_and_every_file(client: TestClient) -> N
     assert client.get("/api/checks").json()[0]["materials_count"] == 4
 
 
+def test_post_empty_file_is_saved_but_does_not_complete_daily(client: TestClient) -> None:
+    response = client.post(
+        "/api/checks",
+        data={"record_type": "daily"},
+        files=[
+            ("files", (DIARY, b"sample")),
+            ("files", (REPORT, b"sample")),
+            ("files", (FEEDBACK, b"")),
+        ],
+    )
+    assert response.status_code == 200
+    result = response.json()
+    assert result["status"] == "incomplete"
+    assert [issue["level"] for issue in result["issues"]] == ["warning", "error"]
+    assert "Пустой файл" in result["issues"][0]["message"]
+    assert result["documents"][-1]["detected_type"] is None
+    assert result["documents"][-1]["size_kb"] == 0
+    assert client.get("/api/checks").json()[0]["materials_count"] == 3
+    assert client.get(f"/api/checks/{result['check_id']}").json() == result
+
+
 def test_history_order_counts_and_details(client: TestClient) -> None:
     first = upload(client, "daily", DIARY, REPORT).json()
     second = upload(client, "weekly", DIARY, REPORT, FEEDBACK, CONCLUSION).json()
