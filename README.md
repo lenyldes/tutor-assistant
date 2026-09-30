@@ -14,8 +14,9 @@
 
 ## 1. Демонстрационный стенд (Live Demo)
 
-- Демо: [https://tutor-assistant.lenyldes.ru/](https://tutor-assistant.lenyldes.ru/)
-- Swagger UI: [https://tutor-assistant.lenyldes.ru/docs](https://tutor-assistant.lenyldes.ru/docs)
+- **Демо**: [https://tutor-assistant.lenyldes.ru/](https://tutor-assistant.lenyldes.ru/)
+- **Swagger UI**: [https://tutor-assistant.lenyldes.ru/docs](https://tutor-assistant.lenyldes.ru/docs)
+- **Сервер**: Raspberry Pi 5 (Debian 13, ARM64), Docker Compose, обратный прокси Caddy 2 с автоматическим TLS Let's Encrypt и HTTP/2.
 
 > [!CAUTION]
 > **Демо публичное — не загружайте персональные данные детей.** \
