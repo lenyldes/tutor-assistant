@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Проверка материалов тьютора</title>
+  <link rel="stylesheet" href="/web/style.css">
+  <script src="/web/app.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="shell header-row">
+      <a class="brand" href="/" aria-label="Проверка материалов тьютора — главная">
+        <span class="brand-mark">Т</span>
+        <span>Материалы тьютора</span>
+      </a>
+      <a class="api-link" href="/docs">Документация API <span aria-hidden="true">↗</span></a>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="hero" aria-labelledby="page-title">
+      <div class="eyebrow"><span class="eyebrow-dot"></span> ДЕМОНСТРАЦИЯ СЕРВИСА</div>
+      <h1 id="page-title">Проверка комплекта<br><em>без лишних шагов.</em></h1>
+      <p class="lead">Загрузите материалы за день или неделю. Сервис проверит формат, название и комплектность файлов, а результат сохранит в истории.</p>
+      <div class="privacy" role="alert"><span class="privacy-icon" aria-hidden="true">!</span><span><strong>Демо публичное.</strong> Не загружайте персональные данные детей.</span></div>
+    </section>
+
+    <section class="workspace" aria-label="Проверка материалов">
+      <div class="main-column">
+        <section class="card upload-card" aria-labelledby="upload-title">
+          <div class="section-heading"><div><span class="step">01 / ПРОВЕРКА</span><h2 id="upload-title">Новая проверка</h2></div><span class="hint">PDF · DOCX · XLSX · JPG · PNG</span></div>
+          <form id="check-form">
+            <fieldset class="record-types"><legend>Тип записи</legend>
+              <label class="radio-card"><input type="radio" name="record_type" value="daily" checked><span><strong>День</strong><small>3 обязательных материала</small></span></label>
+              <label class="radio-card"><input type="radio" name="record_type" value="weekly"><span><strong>Неделя</strong><small>4 обязательных материала</small></span></label>
+            </fieldset>
+            <label class="drop-zone" for="files"><span class="drop-icon" aria-hidden="true">↑</span><strong>Выберите файлы для проверки</strong><small>Можно выбрать несколько файлов · до 20 МБ каждый</small><input id="files" name="files" type="file" multiple accept=".pdf,.docx,.xlsx,.jpg,.png"></label>
+            <ul id="selected-files" class="selected-files" aria-live="polite"></ul>
+            <button id="submit-button" class="button button-primary" type="submit">Проверить комплект <span aria-hidden="true">→</span></button>
+          </form>
+        </section>
+
+        <section class="card scenarios-card" aria-labelledby="scenarios-title">
+          <div class="section-heading"><div><span class="step">02 / ПРИМЕРЫ</span><h2 id="scenarios-title">Готовые сценарии</h2></div></div>
+          <p class="section-description">Попробуйте сервис на вымышленных файлах. Каждый пример отправляет обычный запрос к API.</p>
+          <div class="scenario-grid">
+            <button class="scenario" type="button" data-scenario="daily"><span class="scenario-number">01</span><span><strong>Полный daily</strong><small>Три материала · полный комплект</small></span><span class="arrow" aria-hidden="true">↗</span></button>
+            <button class="scenario" type="button" data-scenario="weekly"><span class="scenario-number">02</span><span><strong>Полный weekly</strong><small>Четыре материала · полный комплект</small></span><span class="arrow" aria-hidden="true">↗</span></button>
+            <button class="scenario" type="button" data-scenario="incomplete"><span class="scenario-number">03</span><span><strong>Неполный комплект</strong><small>Нет обратной связи родителя</small></span><span class="arrow" aria-hidden="true">↗</span></button>
+            <button class="scenario" type="button" data-scenario="unknown"><span class="scenario-number">04</span><span><strong>Нераспознанное имя</strong><small>Полный комплект + лишний файл</small></span><span class="arrow" aria-hidden="true">↗</span></button>
+          </div>
+        </section>
+
+        <section class="card history-card" aria-labelledby="history-title">
+          <div class="section-heading"><div><span class="step">03 / АРХИВ</span><h2 id="history-title">История проверок</h2></div><button id="refresh-history" class="text-button" type="button">Обновить ↻</button></div>
+          <p class="section-description">Результаты остаются доступными после закрытия страницы.</p>
+          <div id="history" class="history-list" aria-live="polite">Загрузка истории…</div>
+        </section>
+      </div>
+
+      <aside class="side-column" aria-label="Результат и обращение к API">
+        <section class="card result-card" aria-labelledby="result-title">
+          <span class="step">РЕЗУЛЬТАТ</span><h2 id="result-title">Итог проверки</h2>
+          <div id="result" class="result-content" aria-live="polite"><div class="empty-state"><span class="empty-glyph">◇</span><strong>Здесь появится результат</strong><span>Выберите файлы или запустите готовый сценарий.</span></div></div>
+        </section>
+        <section class="card api-card" aria-labelledby="api-title">
+          <div class="section-heading"><div><span class="step">ПРОЗРАЧНОСТЬ</span><h2 id="api-title">Обращение к API</h2></div></div>
+          <p class="section-description">Последний запрос и фактический ответ сервера.</p>
+          <dl id="request-meta" class="request-meta"><div><dt>Метод и путь</dt><dd>—</dd></div><div><dt>Тип записи</dt><dd>—</dd></div><div><dt>Файлы</dt><dd>—</dd></div><div><dt>HTTP-код</dt><dd>—</dd></div></dl>
+          <div class="json-heading">JSON-ответ</div><pre id="json-response" class="json-response">Ожидание запроса…</pre>
+        </section>
+      </aside>
+    </section>
+  </main>
+  <footer class="shell footer"><span>Проверка материалов тьютора</span><span>Демонстрационный сервис · <a href="/docs">REST API</a></span></footer>
+</body>
+</html>

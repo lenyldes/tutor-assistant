@@ -2,6 +2,7 @@
 
 from concurrent.futures import ThreadPoolExecutor
 from datetime import UTC, datetime, timedelta
+from pathlib import Path
 from threading import Event
 from uuid import UUID, uuid4
 
@@ -141,3 +142,30 @@ def test_parallel_read_sees_committed_intermediate_state(client: TestClient, mon
     factory = get_session_factory()
     with factory() as db:
         assert db.scalar(select(CheckDocument.size_bytes)) == 6
+
+
+def test_demo_page_styles_and_privacy_warning(client: TestClient) -> None:
+    page = client.get("/")
+    assert page.status_code == 200
+    assert "text/html" in page.headers["content-type"]
+    assert "Демо публичное." in page.text
+    assert "Не загружайте персональные данные детей." in page.text
+    assert 'data-scenario="unknown"' in page.text
+    assert client.get("/web/style.css").status_code == 200
+    assert client.get("/web/app.js").status_code == 200
+
+
+def test_demo_files_are_served_without_changes(client: TestClient) -> None:
+    folder = Path(__file__).resolve().parent.parent / "demo_files"
+    names = (
+        "дневник_наблюдений.xlsx",
+        "отчёт_о_занятии.pdf",
+        "обратная_связь_родителя.docx",
+        "заключение_специалиста.png",
+        "scan_0041.jpg",
+        "заключение_специалиста.exe",
+    )
+    for name in names:
+        response = client.get(f"/demo-files/{name}")
+        assert response.status_code == 200
+        assert response.content == (folder / name).read_bytes()
