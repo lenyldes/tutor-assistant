@@ -7,8 +7,8 @@
 
 ## 2. Правила и хранение
 
-- [ ] 2.1 Создать `app/schemas.py`, `app/checker.py` и `tests/test_checker.py`: четыре распознаваемых типа, разделители/регистр, ограничения формата и 20 МБ, пропуск непригодных файлов, комплектность и статусы; проверить `pytest -q tests/test_checker.py` на примерах 1–8 из `control-cases.md` (минимум 5 отдельных тестов).
-- [ ] 2.2 Создать `app/models.py`, `alembic.ini`, `alembic/env.py`, `alembic/versions/<revision>.py` для таблиц `checks` и `check_documents`, JSONB замечаний и начального статуса; проверить `alembic upgrade head` на отдельной пустой PostgreSQL и наличие обеих таблиц.
+- [x] 2.1 Создать `app/schemas.py`, `app/checker.py` и `tests/test_checker.py`: четыре распознаваемых типа, разделители/регистр, ограничения формата и 20 МБ, пропуск непригодных файлов, комплектность и статусы; проверить `pytest -q tests/test_checker.py` на примерах 1–8 из `control-cases.md` (минимум 5 отдельных тестов).
+- [x] 2.2 Создать `app/models.py`, `alembic.ini`, `alembic/env.py`, `alembic/versions/<revision>.py` для таблиц `checks` и `check_documents`, JSONB замечаний и начального статуса; проверить `alembic upgrade head` на отдельной пустой PostgreSQL и наличие обеих таблиц.
 
 ## 3. REST API и история
 
