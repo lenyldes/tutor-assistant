@@ -2,8 +2,8 @@
 
 ## 1. Основа проекта и запуска
 
-- [ ] 1.1 Создать `requirements.txt`, `app/__init__.py`, `app/config.py`, `app/db.py` с Python 3.11, настройками из окружения и сессией PostgreSQL; проверить установку зависимостей и импорт `app.config`/`app.db` в чистом окружении.
-- [ ] 1.2 Создать `Dockerfile`, `docker-compose.yml`, `.env.example` и `doc/LOCAL_DEV.md`: БД с healthcheck, сервис приложения, команда миграции перед стартом, значения Compose по умолчанию для запуска `docker compose up` без ручного копирования `.env`; проверить `docker compose config -q` и `docker compose build --quiet`.
+- [x] 1.1 Создать `requirements.txt`, `app/__init__.py`, `app/config.py`, `app/db.py` с Python 3.11, настройками из окружения и сессией PostgreSQL; проверить установку зависимостей и импорт `app.config`/`app.db` в чистом окружении.
+- [x] 1.2 Создать `Dockerfile`, `docker-compose.yml`, `.env.example` и `doc/LOCAL_DEV.md`: БД с healthcheck, сервис приложения, команда миграции перед стартом, значения Compose по умолчанию для запуска `docker compose up` без ручного копирования `.env`; проверить `docker compose config -q` и `docker compose build --quiet`.
 
 ## 2. Правила и хранение
 
