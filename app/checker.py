@@ -4,6 +4,7 @@ import re
 from collections.abc import Iterable
 from dataclasses import dataclass
 from pathlib import PurePath
+from unicodedata import normalize
 
 from app.schemas import (
     CheckOutcome,
@@ -34,7 +35,7 @@ class FileMetadata:
 
 def detect_type(name: str) -> DocumentType | None:
     """Находит категорию по последовательности слов в имени без расширения."""
-    words = re.split(r"[\s_-]+", PurePath(name).stem.casefold())
+    words = re.split(r"[\s_-]+", normalize("NFC", PurePath(name).stem.casefold()))
     for category, phrase in TYPE_PHRASES.items():
         phrase_words = phrase.split()
         width = len(phrase_words)

@@ -4,6 +4,7 @@ from concurrent.futures import ThreadPoolExecutor
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from threading import Event
+from unicodedata import normalize
 from uuid import UUID, uuid4
 
 from fastapi.testclient import TestClient
@@ -45,6 +46,16 @@ def test_post_complete_daily_and_saved_result(client: TestClient) -> None:
     ]
     assert [document["size_kb"] for document in result["documents"]] == [1, 1, 1]
     assert client.get(f"/api/checks/{result['check_id']}").json() == result
+
+
+def test_post_recognizes_decomposed_unicode_names(client: TestClient) -> None:
+    names = (normalize("NFD", DIARY), normalize("NFD", REPORT), FEEDBACK)
+    response = upload(client, "daily", *names)
+    assert response.status_code == 200
+    result = response.json()
+    assert result["status"] == "complete"
+    assert result["issues"] == []
+    assert [document["name"] for document in result["documents"]] == list(names)
 
 
 def test_post_incomplete_weekly_with_invalid_file(client: TestClient) -> None:

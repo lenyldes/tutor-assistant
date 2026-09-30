@@ -1,5 +1,7 @@
 """Контрольные примеры 1–8 для независимой от БД проверки материалов."""
 
+from unicodedata import normalize
+
 import pytest
 
 from app.checker import MAX_FILE_BYTES, FileMetadata, check_files, detect_type
@@ -25,6 +27,19 @@ def test_case_1_complete_daily() -> None:
     assert result.reason == ""
     assert len(result.documents) == 3
     assert result.issues == []
+
+
+def test_decomposed_unicode_names_keep_daily_complete() -> None:
+    names = (normalize("NFD", DIARY), normalize("NFD", REPORT), FEEDBACK)
+    result = check_files(RecordType.DAILY, files(*names))
+    assert result.status == CheckStatus.COMPLETE
+    assert result.issues == []
+    assert [document.name for document in result.documents] == list(names)
+    assert [document.detected_type for document in result.documents] == [
+        DocumentType.OBSERVATION_DIARY,
+        DocumentType.LESSON_REPORT,
+        DocumentType.PARENT_FEEDBACK,
+    ]
 
 
 def test_case_2_complete_weekly() -> None:
