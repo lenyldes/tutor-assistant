@@ -1,0 +1,15 @@
+services:
+  db:
+    restart: unless-stopped
+
+  app:
+    container_name: tutor_assistant_app
+    restart: unless-stopped
+    networks:
+      - default
+      - caddy-public
+
+networks:
+  default:
+  caddy-public:
+    external: true
