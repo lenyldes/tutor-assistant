@@ -12,9 +12,9 @@
 
 ## 3. REST API и история
 
-- [ ] 3.1 Создать `app/api/__init__.py`, `app/api/checks.py`, `app/main.py`, `tests/conftest.py` и `tests/test_api.py`: POST создаёт и коммитит `check_in_progress`, обрабатывает файлы, сохраняет финальный результат и отвечает им; проверить `pytest -q tests/test_api.py` на полном и неполном наборе, предупреждении и `extracted: {}`.
-- [ ] 3.2 Дополнить `app/api/checks.py` и `tests/test_api.py` для `GET /api/checks` и `GET /api/checks/{id}`: полный набор метаданных, количество всех файлов, стабильный порядок, HTTP 404; проверить `pytest -q tests/test_api.py` на истории, деталях и неизвестном ID.
-- [ ] 3.3 Дополнить `app/api/checks.py` и `tests/test_api.py` обработкой пустого набора (400), неверного типа (422) и параллельного чтения промежуточного статуса; проверить `pytest -q tests/test_api.py`, включая отсутствие записи после 400/422 и совпадение POST с сохранённым результатом.
+- [x] 3.1 Создать `app/api/__init__.py`, `app/api/checks.py`, `app/main.py`, `tests/conftest.py` и `tests/test_api.py`: POST создаёт и коммитит `check_in_progress`, обрабатывает файлы, сохраняет финальный результат и отвечает им; проверить `pytest -q tests/test_api.py` на полном и неполном наборе, предупреждении и `extracted: {}`.
+- [x] 3.2 Дополнить `app/api/checks.py` и `tests/test_api.py` для `GET /api/checks` и `GET /api/checks/{id}`: полный набор метаданных, количество всех файлов, стабильный порядок, HTTP 404; проверить `pytest -q tests/test_api.py` на истории, деталях и неизвестном ID.
+- [x] 3.3 Дополнить `app/api/checks.py` и `tests/test_api.py` обработкой пустого набора (400), неверного типа (422) и параллельного чтения промежуточного статуса; проверить `pytest -q tests/test_api.py`, включая отсутствие записи после 400/422 и совпадение POST с сохранённым результатом.
 
 ## 4. Демонстрационная страница
 
